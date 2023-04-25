@@ -1,17 +1,33 @@
 package com.example.AmexTakeHome.service;
 
 import com.example.AmexTakeHome.entity.Item;
+import com.example.AmexTakeHome.entity.OrderSummary;
+import com.example.AmexTakeHome.entity.SimpleOrder;
+import com.example.AmexTakeHome.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public final class OrderServiceImpl implements OrderService {
 
+    @Autowired
+    private OrderRepository orderRepository;
+
+
     @Override
-    public HashMap<Object, Object> createOrder(HashMap<String, Integer> items) {
-        HashMap<Object, Object> summary = new HashMap<>();
-        summary.put("items", items);
+    public OrderSummary saveOrder(HashMap<String, Integer> items) {
+
+        SimpleOrder order = new SimpleOrder(items);
+
+        orderRepository.save(order);
+
+        OrderSummary summary = new OrderSummary();
+
+        summary.setItems(items);
+        summary.setId(order.getId());
 
         double cost = 0;
         int discount = 0;
@@ -43,7 +59,17 @@ public final class OrderServiceImpl implements OrderService {
             }
         }
 
-        summary.put("cost", cost);
+        summary.setCost(cost);
         return summary;
+    }
+
+    @Override
+    public List<SimpleOrder> fetchAllOrders() {
+        return (List<SimpleOrder>) orderRepository.findAll();
+    }
+
+    @Override
+    public SimpleOrder fetchOrder(int orderID) {
+        return orderRepository.findById(orderID);
     }
 }

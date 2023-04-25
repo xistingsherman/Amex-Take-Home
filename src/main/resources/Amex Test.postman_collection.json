@@ -6,7 +6,182 @@
 	},
 	"item": [
 		{
-			"name": "test service cost",
+			"name": "all orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"apple\": 5,\r\n    \"orange\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "only order 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/orders/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "only order 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/orders/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "only order 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/orders/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"orders",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test service - apples and oranges",
 			"event": [
 				{
 					"listen": "test",
@@ -17,7 +192,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, 3.75);\r",
+							"    pm.expect(jsonData.cost).to.equal(2.3);\r",
 							"\r",
 							"})"
 						],
@@ -38,13 +213,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -63,7 +238,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .6);\r",
+							"    pm.expect(jsonData.cost).to.equal(0.6);\r",
 							"\r",
 							"})"
 						],
@@ -84,13 +259,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -109,7 +284,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .6);\r",
+							"    pm.expect(jsonData.cost).to.equal(0.6);\r",
 							"\r",
 							"})"
 						],
@@ -130,13 +305,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -155,7 +330,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .6);\r",
+							"    pm.expect(jsonData.cost).to.equal(1.2);\r",
 							"\r",
 							"})"
 						],
@@ -176,13 +351,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -201,7 +376,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .6);\r",
+							"    pm.expect(jsonData.cost).to.equal(1.2);\r",
 							"\r",
 							"})"
 						],
@@ -222,13 +397,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -247,7 +422,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .6);\r",
+							"    pm.expect(jsonData.cost).to.equal(1.8);\r",
 							"\r",
 							"})"
 						],
@@ -268,13 +443,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -293,7 +468,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .25);\r",
+							"    pm.expect(jsonData.cost).to.equal(0.25);\r",
 							"\r",
 							"})"
 						],
@@ -314,13 +489,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -339,7 +514,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .50);\r",
+							"    pm.expect(jsonData.cost).to.equal(0.5);\r",
 							"\r",
 							"})"
 						],
@@ -360,13 +535,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -385,7 +560,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .5);\r",
+							"    pm.expect(jsonData.cost).to.equal(0.5);\r",
 							"\r",
 							"})"
 						],
@@ -406,13 +581,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -431,7 +606,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .75);\r",
+							"    pm.expect(jsonData.cost).to.equal(0.75);\r",
 							"\r",
 							"})"
 						],
@@ -452,13 +627,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -466,7 +641,7 @@
 			"response": []
 		},
 		{
-			"name": "test service cost - 5",
+			"name": "test service cost - 5 oranges",
 			"event": [
 				{
 					"listen": "test",
@@ -477,7 +652,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .75);\r",
+							"    pm.expect(jsonData.cost).to.equal(1.0);\r",
 							"\r",
 							"})"
 						],
@@ -498,13 +673,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -523,7 +698,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .75);\r",
+							"    pm.expect(jsonData.cost).to.equal(1.0);\r",
 							"\r",
 							"})"
 						],
@@ -544,13 +719,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}
@@ -569,7 +744,7 @@
 							"pm.test(\"testing service cost\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.text()).to.include(\"cost\");\r",
-							"    pm.expect(pm.response.cost, .75);\r",
+							"    pm.expect(jsonData.cost).to.equal(1.25);\r",
 							"\r",
 							"})"
 						],
@@ -590,13 +765,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/orders/create",
+					"raw": "localhost:8080/shop/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders",
+						"shop",
 						"create"
 					]
 				}

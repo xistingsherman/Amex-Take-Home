@@ -1,36 +1,56 @@
 package com.example.AmexTakeHome;
 
-import com.example.AmexTakeHome.service.OrderService;
+import com.example.AmexTakeHome.entity.SimpleOrder;
+import com.example.AmexTakeHome.repository.OrderRepository;
+import com.example.AmexTakeHome.service.OrderServiceImpl;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTests {
 
+    @Mock
+    private OrderRepository orderRepository;
     @InjectMocks
-    private OrderService orderService;
+    private OrderServiceImpl orderService;
 
     @Test
-    public void testOrderService() {
-        HashMap<String, Integer> testData = new HashMap<>();
-        testData.put("apple", 5);
-        testData.put("orange", 3);
+    public void addOrderService(){
+        HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
+        orderService.saveOrder(sampleData);
+        assertEquals(orderService.fetchOrder(1).getItems().toString(), sampleData.toString());
+    }
 
-        HashMap<Object, Object> result = new HashMap<>();
-        result.put("items", testData);
-        result.put("cost", 3);
-        double cost = 3;
+    @Test
+    public void fetchAllOrderService(){
+        HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
+        orderService.saveOrder(sampleData);
 
-        when(this.orderService.createOrder(testData)).thenReturn(result);
-        assertEquals(this.orderService.createOrder(testData).get("cost"), cost);
+        List<SimpleOrder> list = new ArrayList<>();
+        list.add(new SimpleOrder(sampleData));
+
+        assertEquals(orderService.fetchAllOrders().toString(), list.toString());
+    }
+
+    @Test
+    public void fetchByIdOrderService(){
+        HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
+        orderService.saveOrder(sampleData);
+
+        assertEquals(orderService.fetchOrder(1).getItems().toString(), sampleData.toString());
     }
 
 
 }
+
+
