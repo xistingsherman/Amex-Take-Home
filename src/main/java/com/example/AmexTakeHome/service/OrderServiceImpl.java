@@ -14,12 +14,33 @@ public final class OrderServiceImpl implements OrderService {
         summary.put("items", items);
 
         double cost = 0;
+        int discount = 0;
+        double quantity= 0;
 
         for(String key: items.keySet()){
-            if (key.equalsIgnoreCase("apple"))
-                cost += (Integer)items.get(key).intValue() * Item.APPLE.cost;
-            if (key.equalsIgnoreCase("orange"))
-                cost += (Integer)items.get(key).intValue() * Item.ORANGE.cost;
+            if (key.equalsIgnoreCase("apple")) {
+                quantity = (int) items.get(key).intValue();
+
+                if (quantity % 2 == 0)
+                    discount = (int)quantity / 2;
+                else
+                    discount = (int) Math.ceil(quantity / 2);
+                cost += discount * Item.APPLE.cost;
+                //fix rounding error
+                cost = Math.round(cost * 100.0) / 100.0;
+            }
+            if (key.equalsIgnoreCase("orange")) {
+                quantity = (int) items.get(key).intValue();
+
+                discount = (int)(quantity / 3) * 2;
+
+                if (quantity % 3 == 1)
+                    discount += 1;
+                else if (quantity % 3 == 2)
+                    discount += 2;
+
+                cost += discount * Item.ORANGE.cost;
+            }
         }
 
         summary.put("cost", cost);
