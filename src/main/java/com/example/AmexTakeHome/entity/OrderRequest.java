@@ -3,18 +3,20 @@ package com.example.AmexTakeHome.entity;
 
 import java.util.HashMap;
 
-public class SimpleOrder {
-    private int id;
-    private HashMap<String, Integer> items;
-    public static int count = 0;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-    public SimpleOrder(HashMap<String, Integer> items) {
-        count++;
-        this.id = count;
+public class OrderRequest {
+    private HashMap<String, Integer> items;
+    @JsonIgnore
+    public static int count = 0;
+    @JsonIgnore
+    private int id = count++;
+
+    public OrderRequest(HashMap<String, Integer> items) {
         this.items = items;
     }
 
-    public SimpleOrder() {
+    public OrderRequest() {
 
     }
 
@@ -32,9 +34,5 @@ public class SimpleOrder {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
