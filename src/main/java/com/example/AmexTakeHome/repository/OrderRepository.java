@@ -1,25 +1,29 @@
 package com.example.AmexTakeHome.repository;
 
-import com.example.AmexTakeHome.entity.SimpleOrder;
+import com.example.AmexTakeHome.entity.OrderSummary;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Notes:
+ * Changed to save OrderSummary rather than the Request
+ */
 @Repository
 public class OrderRepository {
-    List<SimpleOrder> orders = new ArrayList<SimpleOrder>();
+    List<OrderSummary> orders = new ArrayList<OrderSummary>();
 
-    public List<SimpleOrder>  findAll() {
+    public List<OrderSummary>  findAll() {
         return orders;
     }
 
-    public void save(SimpleOrder order){
+    public void save(OrderSummary order){
         orders.add(order);
     }
 
-    public SimpleOrder findById(int id){
-        for(SimpleOrder order: orders){
+    public OrderSummary findById(int id){
+        for(OrderSummary order: orders){
             if(order.getId() == id)
                 return order;
         }

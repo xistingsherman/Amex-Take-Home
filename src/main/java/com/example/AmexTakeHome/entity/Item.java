@@ -1,12 +1,14 @@
 package com.example.AmexTakeHome.entity;
 
-public enum Item {
-    APPLE(0.6),
-    ORANGE(0.25);
-    public final double cost;
+import java.math.BigDecimal;
 
-    Item(double cost) {
-        this.cost = cost;
+public enum Item {
+    APPLE("0.6"),
+    ORANGE("0.25");
+    public final BigDecimal cost;
+
+    Item(String cost) {
+        this.cost = new BigDecimal(cost);
     }
 }
 

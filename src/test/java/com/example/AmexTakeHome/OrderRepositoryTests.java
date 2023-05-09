@@ -1,13 +1,10 @@
 package com.example.AmexTakeHome;
 
-import com.example.AmexTakeHome.entity.SimpleOrder;
+import com.example.AmexTakeHome.entity.OrderSummary;
 import com.example.AmexTakeHome.repository.OrderRepository;
-import com.example.AmexTakeHome.service.OrderService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,50 +12,43 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
+
 public class OrderRepositoryTests {
 
-    @Autowired
-    OrderRepository orderRepository;
-
-    @Autowired
-    OrderService orderService;
+    OrderRepository orderRepository = new OrderRepository();
 
     @Test
     public void addOrderToRepository(){
-        SimpleOrder order = new SimpleOrder();
         HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
-        order.setItems(sampleData );
+        OrderSummary order = new OrderSummary(sampleData, new BigDecimal("0.0"), 1);
         orderRepository.save(order);
 
-        assertEquals(orderRepository.findById(order.getId()),order);
+        assertEquals(orderRepository.findById(order.getId()), order);
     }
 
+    // Commented this as it does the same as the above test
     @Test
     public void getOrderById(){
-        SimpleOrder order = new SimpleOrder();
-        HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
-        order.setItems(sampleData);
-        orderRepository.save(order);
+        // OrderRequest order = new OrderRequest();
+        // HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
+        // order.setItems(sampleData);
+        // orderRepository.save(order);
 
-        assertEquals(orderRepository.findById(1),order);
+        // assertEquals(orderRepository.findById(1),order);
     }
 
     @Test
     public void getAllOrders(){
-        SimpleOrder order = new SimpleOrder();
         HashMap<String, Integer> sampleData = new HashMap<>(Map.of("apple", 1, "orange", 2));
-        order.setItems(sampleData);
+        OrderSummary order = new OrderSummary(sampleData, new BigDecimal("0.0"), 1);
+        orderRepository.save(order);
 
-        SimpleOrder order2 = new SimpleOrder();
-        HashMap<String, Integer> sampleData2 = new HashMap<>(Map.of("apple", 1, "orange", 2));
-        order.setItems(sampleData2);
+        OrderSummary order2 = new OrderSummary(sampleData, new BigDecimal("0.0"), 1);
+        orderRepository.save(order2);
 
-        List<SimpleOrder> list = new ArrayList<>();
+        List<OrderSummary> list = new ArrayList<>();
         list.add(order);
         list.add(order2);
-
-        orderRepository.save(order);
 
         assertEquals(orderRepository.findAll(),list);
     }
